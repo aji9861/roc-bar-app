@@ -3,8 +3,10 @@
     <!--
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
+        This line was not working for me, so I removed the parent Cory
+        <style name="AppBaseTheme" parent="android:Theme.Holo.Light" >
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    <style name="AppBaseTheme" >
         <!-- API 11 theme customizations can go here. -->
     </style>
 
