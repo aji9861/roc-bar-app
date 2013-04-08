@@ -9,18 +9,9 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends Activity {
-  static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-  static final LatLng KIEL = new LatLng(53.551, 9.993);
-  private GoogleMap map;
+ 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
