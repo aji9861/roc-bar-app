@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
                    .setCancelable(false)
                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);     						
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);     						
      						startActivity(intent);
                             dialog.dismiss();
                        }
