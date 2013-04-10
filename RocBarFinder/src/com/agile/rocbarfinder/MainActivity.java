@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        new BarInfoFetcher(this).execute();
         checkGPSEnabled();
     }
 
@@ -31,8 +32,8 @@ public class MainActivity extends Activity {
     private void checkGPSEnabled(){
     	String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
     	if(!provider.equals("")){
-    		// Gps is enabled
-    		Toast.makeText(MainActivity.this, "GPS Enabled: " + provider,
+    		// Location is enabled
+    		Toast.makeText(MainActivity.this, "Location Enabled: " + provider,
     		          Toast.LENGTH_LONG).show();
     	}
     	else{

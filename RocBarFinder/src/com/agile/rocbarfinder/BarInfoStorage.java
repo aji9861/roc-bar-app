@@ -1,5 +1,6 @@
 package com.agile.rocbarfinder;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import android.provider.BaseColumns;
@@ -93,9 +94,36 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		return success;
 	}
 	
-	public BarInformation getBarByName(String name){
+	public synchronized List<BarInformation> getAllBars(){
+		List<BarInformation> lbi = new LinkedList<BarInformation>();
+		SQLiteDatabase db = getReadableDatabase();
+
+		try{
+			Cursor c = db.query(DB_TABLE_NAME, null, null, null , null, null, null);
+			if(!c.moveToFirst()){
+				while(c.moveToNext()){
+					BarInformation bi = new BarInformation(
+							getStringValueFromName(c, DB_COL_NAME),
+							getStringValueFromName(c, DB_COL_VICINITY),
+							getStringValueFromName(c, DB_COL_IMAGE),
+							getStringValueFromName(c, DB_COL_BAR_ID),
+							getDoubleValueFromName(c, DB_COL_LAT),
+							getDoubleValueFromName(c, DB_COL_LONG));
+					lbi.add(bi);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			db.close();
+		}
+
+		return lbi;
+	}
+	
+	public synchronized BarInformation getBarByName(String name){
 		BarInformation bi = null;
-		SQLiteDatabase db = getWritableDatabase();
+		SQLiteDatabase db = getReadableDatabase();
 		
 		try{
 			Cursor c = db.query(DB_TABLE_NAME, null, DB_COL_NAME + "=?", new String[]{name}, null, null, null);
