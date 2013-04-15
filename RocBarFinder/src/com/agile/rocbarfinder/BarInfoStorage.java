@@ -50,6 +50,10 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		return self;
 	}
 	
+	public synchronized static BarInfoStorage getInstance(){
+		return self;
+	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TABLE_COMMAND);
