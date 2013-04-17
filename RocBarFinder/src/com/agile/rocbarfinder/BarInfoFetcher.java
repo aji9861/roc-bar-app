@@ -18,13 +18,13 @@ public class BarInfoFetcher extends AsyncTask<String, Void, Boolean>{
 	private final String apiKey = "AIzaSyD3ZznuBfcgAwbz5eqWtngbby871Epkq3U";
 	private final String searchLatitude = "43.1547";		// For Rochester NY
 	private final String searchLongitude = "-77.6158"; 	// For Rochester NY
-	private final String searchRadius = "6000";			// In meters
-	private final String searchName = "bar";
+	private final String searchRadius = "15000";			// In meters
+	private final String searchType = "bar";
 	
 	private final String placesApiUrl = "https://maps.googleapis.com/maps/api/place/search/json?";
 	private final String placesLocationParam = "&location=" + searchLatitude + "," + searchLongitude;
 	private final String placesRadiusParam = "&radius=" + searchRadius;
-	private final String placesNamesParam = "&names=" + searchName;
+	private final String placesNamesParam = "&types=" + searchType;
 	private final String placesSensorParam = "&sensor=true";
 	private final String placesKeyParam = "&key=" + apiKey;
 	
