@@ -43,11 +43,13 @@ private GoogleMap mapView;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.equals(findViewById(R.id.ViewList))){
+		if (item.getItemId() == R.id.ViewList){
 			Intent intent = new Intent(MainActivity.this, BarList.class);
 			startActivity(intent);
+			finish();
+			return true;
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
     private void checkGPSEnabled(){

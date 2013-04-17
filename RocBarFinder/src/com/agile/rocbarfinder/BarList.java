@@ -1,6 +1,7 @@
 package com.agile.rocbarfinder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -14,10 +15,10 @@ public class BarList extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		populateList();
 		
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.bar_list,(String[]) BARS.toArray()));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.bar_list,(Arrays.copyOf(BARS.toArray(), BARS.size(), String[].class))));
 	}
 	
 	private void populateList(){

@@ -26,6 +26,9 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 	private static final String DB_COL_BAR_ID= "BAR_ID";
 	private static final String DB_COL_TYPE = "TYPE";
 	
+	private static final String[] DB_ALL_COLS = new String[]{DB_COL_NAME, DB_COL_LAT, DB_COL_LONG,
+		DB_COL_VICINITY,DB_COL_IMAGE,DB_COL_BAR_ID,DB_COL_TYPE};
+	
 	private static final String CREATE_TABLE_COMMAND = 
 			"CREATE TABLE " + DB_TABLE_NAME + " (" +
 			BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -108,8 +111,8 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 
 		try{
-			Cursor c = db.query(DB_TABLE_NAME, null, null, null , null, null, null);
-			if(!c.moveToFirst()){
+			Cursor c = db.query(DB_TABLE_NAME, DB_ALL_COLS, null, null , null, null, null);
+			if(c.moveToFirst()){
 				while(c.moveToNext()){
 					BarInformation bi = new BarInformation(
 							getStringValueFromName(c, DB_COL_NAME),
@@ -143,7 +146,7 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		
 		try{
-			Cursor c = db.query(DB_TABLE_NAME, null, DB_COL_NAME + "=?", new String[]{name}, null, null, null);
+			Cursor c = db.query(DB_TABLE_NAME, DB_ALL_COLS, DB_COL_NAME + "=?", new String[]{name}, null, null, null);
 			if(c.moveToFirst()){
 				bi = new BarInformation(
 						getStringValueFromName(c, DB_COL_NAME),
