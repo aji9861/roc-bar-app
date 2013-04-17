@@ -4,5 +4,6 @@
     <string name="app_name">RocBarFinder</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="list_view">List View</string>
 
 </resources>

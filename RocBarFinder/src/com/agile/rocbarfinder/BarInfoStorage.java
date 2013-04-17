@@ -1,5 +1,6 @@
 package com.agile.rocbarfinder;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,6 +51,10 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		return self;
 	}
 	
+	public synchronized static BarInfoStorage getInstance(){
+		return self;
+	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TABLE_COMMAND);
@@ -95,6 +100,10 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 	}
 	
 	public synchronized List<BarInformation> getAllBars(){
+		return getAllBars(BarSortingOption.None, 0, 0);
+	}
+	
+	public synchronized List<BarInformation> getAllBars(BarSortingOption sortingOptions, double lat, double lon){
 		List<BarInformation> lbi = new LinkedList<BarInformation>();
 		SQLiteDatabase db = getReadableDatabase();
 
@@ -110,6 +119,14 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 							getDoubleValueFromName(c, DB_COL_LAT),
 							getDoubleValueFromName(c, DB_COL_LONG));
 					lbi.add(bi);
+				}
+			}
+			if(sortingOptions != BarSortingOption.None){
+				if(sortingOptions == BarSortingOption.DistanceToBar){
+					Collections.sort(lbi, new BarComparatorDistance(lat, lon));
+				}
+				else if(sortingOptions == BarSortingOption.Name){
+					Collections.sort(lbi, new BarComparatorName());
 				}
 			}
 		}catch(Exception e){

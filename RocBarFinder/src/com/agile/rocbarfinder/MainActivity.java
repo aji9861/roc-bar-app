@@ -4,7 +4,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.location.Criteria;
@@ -13,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.content.Context;
+import android.view.MenuItem;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
@@ -40,7 +40,16 @@ private GoogleMap mapView;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.equals(findViewById(R.id.ViewList))){
+			Intent intent = new Intent(MainActivity.this, BarList.class);
+			startActivity(intent);
+		}
+		return true;
+	}
+
     private void checkGPSEnabled(){
     	String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
     	if(!provider.equals("")){
