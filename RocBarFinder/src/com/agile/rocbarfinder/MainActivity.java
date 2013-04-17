@@ -77,7 +77,7 @@ private GoogleMap mapView;
             alert.show();
     	}    	
     }
-    
+   
     private void setupMapView() {
     	
     	LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -97,8 +97,9 @@ private GoogleMap mapView;
     		LatLng currentCoordinates = new LatLng(
     				myLocation.getLatitude(),
     				myLocation.getLongitude());
-    	       		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 10));
-    	}    
+    	       		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 18));
+    	}  
+    	mapView.setMyLocationEnabled(true);
     }
 }
 
