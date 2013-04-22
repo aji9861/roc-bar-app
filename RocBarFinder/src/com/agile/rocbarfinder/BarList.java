@@ -92,6 +92,11 @@ public class BarList extends ListActivity {
 			
 			setListAdapter(new ArrayAdapter<String>(this, R.layout.bar_list,(Arrays.copyOf(bars.toArray(), bars.size(), String[].class))));
 			break;
+		case android.R.id.home:
+			Intent intent = new Intent(BarList.this,MainActivity.class);
+			startActivity(intent);
+			finish();
+			break;
 		default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -99,4 +104,12 @@ public class BarList extends ListActivity {
 		
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed(){
+		Intent intent = new Intent(BarList.this,MainActivity.class);
+		startActivity(intent);
+		finish();
+	}
 }
+

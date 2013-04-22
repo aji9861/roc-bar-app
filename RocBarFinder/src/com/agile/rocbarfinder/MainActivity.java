@@ -38,7 +38,9 @@ private GoogleMap mapView;
         setupMapView();
         new BarInfoFetcher(this).execute();
         checkGPSEnabled();
+
         placeMarkers();
+        getActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -50,11 +52,13 @@ private GoogleMap mapView;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.ViewList){
-			Intent intent = new Intent(MainActivity.this, BarList.class);
-			startActivity(intent);
-			finish();
-			return true;
+		Intent intent;
+		switch(item.getItemId()){
+			case R.id.ViewList:
+				intent = new Intent(MainActivity.this, BarList.class);
+				startActivity(intent);
+				finish();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
