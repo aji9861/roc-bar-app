@@ -1,9 +1,15 @@
 package com.agile.rocbarfinder;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.location.Criteria;
@@ -32,6 +38,7 @@ private GoogleMap mapView;
         setupMapView();
         new BarInfoFetcher(this).execute();
         checkGPSEnabled();
+        placeMarkers();
     }
 
     @Override
@@ -102,6 +109,21 @@ private GoogleMap mapView;
     	       		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 18));
     	}  
     	mapView.setMyLocationEnabled(true);
+    }
+    
+    public void placeMarkers()
+    {
+    	List<BarInformation> barList = BarInfoStorage.getInstance().getAllBars();
+    	
+    	if (mapView != null){
+    		
+    		for(BarInformation bar : barList)
+    		{
+    			LatLng position = new LatLng(bar.latitude, bar.longitude);
+    			Marker marker = mapView.addMarker(new MarkerOptions().position(position)
+    	          .title(bar.name));
+    		}
+	    }
     }
 }
 
