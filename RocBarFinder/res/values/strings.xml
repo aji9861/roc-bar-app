@@ -6,6 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="list_view">List View</string>
 	<string name="list_sort_alphabetical">Sort Alphabetically</string>
-	<string name="list_sort_location">Sort by Location</string>
+	<string name="list_sort_distance">Sort by Distance</string>
 	
 </resources>

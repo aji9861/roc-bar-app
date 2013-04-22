@@ -7,8 +7,8 @@
     </item>
     
     <item
-        android:id="@+id/SortLocation"
-        android:title="@string/list_sort_location">
+        android:id="@+id/SortDistance"
+        android:title="@string/list_sort_distance">
     </item>
 
 </menu>

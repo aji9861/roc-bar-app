@@ -14,7 +14,6 @@ public class BarComparatorDistance implements Comparator<BarInformation> {
 	
 	@Override
 	public int compare(BarInformation lhs, BarInformation rhs) {
-		return rhs.getDistance(this.lat, this.lon).compareTo(lhs.getDistance(this.lat, this.lon));		
+		return (-1)*(rhs.getDistance(this.lat, this.lon).compareTo(lhs.getDistance(this.lat, this.lon)));
 	}
-
 }
