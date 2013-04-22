@@ -13,7 +13,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class BarList extends ListActivity {
 
@@ -100,7 +106,6 @@ public class BarList extends ListActivity {
 		default:
 				return super.onOptionsItemSelected(item);
 		}
-		//findViewById(R.id.bar_list).invalidate();
 		
 		return true;
 	}
@@ -111,5 +116,15 @@ public class BarList extends ListActivity {
 		startActivity(intent);
 		finish();
 	}
+	
+	 @Override
+	  protected void onListItemClick(ListView l, View v, int position, long id) {
+	    super.onListItemClick(l, v, position, id);
+	    // Get the item that was clicked
+	    Object o = this.getListAdapter().getItem(position);
+	    String keyword = o.toString();
+	    Toast.makeText(this, "You selected: " + keyword, Toast.LENGTH_SHORT)
+	        .show();
+	  }
 }
 
