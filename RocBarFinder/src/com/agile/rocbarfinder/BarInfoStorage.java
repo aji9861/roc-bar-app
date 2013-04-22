@@ -38,7 +38,8 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 			DB_COL_VICINITY + " TEXT, " +
 			DB_COL_IMAGE + " TEXT, " +
 			DB_COL_BAR_ID + " TEXT, " +
-			DB_COL_TYPE + " TEXT " +
+			DB_COL_TYPE + " TEXT, " +
+			"UNIQUE (" + DB_COL_BAR_ID + ")" +
 			");";
 	
 	private static BarInfoStorage self = null;
