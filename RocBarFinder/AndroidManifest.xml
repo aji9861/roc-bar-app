@@ -38,6 +38,7 @@
         </activity>
         
         <activity android:name=".BarList"> </activity>
+        <activity android:name=".BarInfoActivity"> </activity>
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

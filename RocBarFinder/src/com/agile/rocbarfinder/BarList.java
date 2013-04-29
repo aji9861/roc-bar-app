@@ -117,14 +117,17 @@ public class BarList extends ListActivity {
 		finish();
 	}
 	
-	 @Override
-	  protected void onListItemClick(ListView l, View v, int position, long id) {
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
 	    super.onListItemClick(l, v, position, id);
 	    // Get the item that was clicked
 	    Object o = this.getListAdapter().getItem(position);
 	    String keyword = o.toString();
-	    Toast.makeText(this, "You selected: " + keyword, Toast.LENGTH_SHORT)
-	        .show();
-	  }
+	    
+	    Intent intent = new Intent(BarList.this, BarInfoActivity.class);
+	    intent.putExtra("bar_name", keyword);
+		startActivity(intent);
+		finish();
+	}
 }
 
