@@ -1,13 +1,11 @@
 package com.agile.rocbarfinder;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
@@ -124,7 +122,7 @@ private GoogleMap mapView;
     		for(BarInformation bar : barList)
     		{
     			LatLng position = new LatLng(bar.latitude, bar.longitude);
-    			Marker marker = mapView.addMarker(new MarkerOptions().position(position)
+    			mapView.addMarker(new MarkerOptions().position(position)
     	          .title(bar.name));
     		}
 	    }

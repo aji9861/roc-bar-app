@@ -22,6 +22,7 @@ public class BarInfoFetcher extends AsyncTask<String, Void, Boolean>{
 	private final String searchType = "bar";
 	
 	private final String placesApiUrl = "https://maps.googleapis.com/maps/api/place/search/json?";
+	private final String placesApiDetails = "https://maps.googleapis.com/maps/api/place/details/json?";
 	private final String placesLocationParam = "&location=" + searchLatitude + "," + searchLongitude;
 	private final String placesRadiusParam = "&radius=" + searchRadius;
 	private final String placesNamesParam = "&types=" + searchType;
@@ -38,6 +39,7 @@ public class BarInfoFetcher extends AsyncTask<String, Void, Boolean>{
 	private List<BarInformation> getData(){
 		List<BarInformation> lbi = new ArrayList<BarInformation>();
 		try {
+			//System.out.println("URL: " + placesApiUrl + placesLocationParam + placesRadiusParam + placesNamesParam + placesSensorParam + placesKeyParam);
 		    HttpPost httppost = new HttpPost(placesApiUrl + placesLocationParam + placesRadiusParam + placesNamesParam + placesSensorParam + placesKeyParam);
 		    HttpClient httpclient = new DefaultHttpClient();
 		    HttpResponse response = httpclient.execute(httppost);
@@ -46,7 +48,9 @@ public class BarInfoFetcher extends AsyncTask<String, Void, Boolean>{
 		    JSONArray jsonA = new JSONObject(data).getJSONArray("results");
 		    
 		    for (int i = 0; i < jsonA.length(); i++){
-		    	lbi.add(new BarInformation(jsonA.getJSONObject(i)));
+		    	JSONObject jsonO = jsonA.getJSONObject(i);
+		    	String[] addressPhone = getDetails(jsonO.getString("reference"));
+		    	lbi.add(new BarInformation(jsonO, addressPhone[0], addressPhone[1]));
 		    	System.out.println(lbi.get(i).name);
 		    }
 		    
@@ -56,6 +60,32 @@ public class BarInfoFetcher extends AsyncTask<String, Void, Boolean>{
 		    e.printStackTrace();
 		}
 		return lbi;
+	}
+	
+	/**
+	 * 
+	 * @param reference
+	 * @return String[0] = address String[1] = phone
+	 */
+	private String[] getDetails(String reference){
+		String[] addressPhone = new String[2];
+		try{
+    		HttpPost httppost = new HttpPost(placesApiDetails + "reference=" + reference + placesSensorParam + placesKeyParam);
+    		HttpClient httpclient = new DefaultHttpClient();
+    	    HttpResponse response = httpclient.execute(httppost);
+    	    String data = EntityUtils.toString(response.getEntity());
+    
+    	    JSONObject jsonO = new JSONObject(data).getJSONObject("result");
+    	    
+    	    addressPhone[0] = jsonO.getString("formatted_address");
+    	    addressPhone[1] = jsonO.getString("formatted_phone_number");
+    	    
+    	    System.out.println(addressPhone[0] +" " + addressPhone[1]);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return addressPhone;
 	}
 
 

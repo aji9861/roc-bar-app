@@ -11,8 +11,10 @@ public class BarInformation {
 	public final String id;
 	public final Double longitude;
 	public final Double latitude;
+	public final String address;
+	public final String phone;
 	
-	public BarInformation(JSONObject data) throws JSONException{
+	public BarInformation(JSONObject data, String address, String phone) throws JSONException{
 		name = data.getString("name");
 		vicinity = data.getString("vicinity");
 		image = data.getString("icon");
@@ -22,15 +24,19 @@ public class BarInformation {
 		JSONObject location = geometry.getJSONObject("location");
 		longitude = location.getDouble("lng");
 		latitude = location.getDouble("lat");
+		this.address = address;
+		this.phone = phone;
 	}
 	
-	public BarInformation(String name, String vicinity, String image, String id, Double latitude, Double longitude){
+	public BarInformation(String name, String vicinity, String image, String id, Double latitude, Double longitude, String address, String phone){
 		this.name = name;
 		this.vicinity = vicinity;
 		this.image = image;
 		this.id = id;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.address= address;
+		this.phone = phone;
 	}
 	
 	/**

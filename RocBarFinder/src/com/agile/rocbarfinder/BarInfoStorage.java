@@ -25,9 +25,11 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 	private static final String DB_COL_IMAGE = "IMAGE";
 	private static final String DB_COL_BAR_ID= "BAR_ID";
 	private static final String DB_COL_TYPE = "TYPE";
+	private static final String DB_COL_ADDRESS = "ADDRESS";
+	private static final String DB_COL_PHONE = "PHONE_NUMBER";
 	
 	private static final String[] DB_ALL_COLS = new String[]{DB_COL_NAME, DB_COL_LAT, DB_COL_LONG,
-		DB_COL_VICINITY,DB_COL_IMAGE,DB_COL_BAR_ID,DB_COL_TYPE};
+		DB_COL_VICINITY,DB_COL_IMAGE,DB_COL_BAR_ID,DB_COL_TYPE,DB_COL_ADDRESS,DB_COL_PHONE};
 	
 	private static final String CREATE_TABLE_COMMAND = 
 			"CREATE TABLE " + DB_TABLE_NAME + " (" +
@@ -39,6 +41,8 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 			DB_COL_IMAGE + " TEXT, " +
 			DB_COL_BAR_ID + " TEXT, " +
 			DB_COL_TYPE + " TEXT, " +
+			DB_COL_ADDRESS + " TEXT, " +
+			DB_COL_PHONE + " TEXT, " +
 			"UNIQUE (" + DB_COL_BAR_ID + ")" +
 			");";
 	
@@ -121,7 +125,9 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 							getStringValueFromName(c, DB_COL_IMAGE),
 							getStringValueFromName(c, DB_COL_BAR_ID),
 							getDoubleValueFromName(c, DB_COL_LAT),
-							getDoubleValueFromName(c, DB_COL_LONG));
+							getDoubleValueFromName(c, DB_COL_LONG),
+							getStringValueFromName(c, DB_COL_ADDRESS),
+							getStringValueFromName(c, DB_COL_PHONE));
 					lbi.add(bi);
 				}
 			}
@@ -155,7 +161,9 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 						getStringValueFromName(c, DB_COL_IMAGE),
 						getStringValueFromName(c, DB_COL_BAR_ID),
 						getDoubleValueFromName(c, DB_COL_LAT),
-						getDoubleValueFromName(c, DB_COL_LONG));
+						getDoubleValueFromName(c, DB_COL_LONG),
+						getStringValueFromName(c, DB_COL_ADDRESS),
+						getStringValueFromName(c, DB_COL_PHONE));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -182,6 +190,8 @@ public class BarInfoStorage extends SQLiteOpenHelper {
 		cv.put(DB_COL_VICINITY, bi.vicinity.toString());
 		cv.put(DB_COL_IMAGE, bi.image.toString());
 		cv.put(DB_COL_BAR_ID, bi.id.toString());
+		cv.put(DB_COL_ADDRESS, bi.address.toString());
+		cv.put(DB_COL_PHONE, bi.phone.toString());
 		
 		return cv;
 	}
