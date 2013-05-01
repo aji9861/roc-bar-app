@@ -35,17 +35,16 @@ public class BarInfoActivity extends ListActivity {
 	}
 	
 	private ArrayList<String> getList(String bar_name) {
-		// Get bar info from BarInfoStorage.getInstance()
-		ArrayList<String> bars = new ArrayList<String>();
-		bars.add(bar_name);
-		return bars;
+		BarInformation barInfo = BarInfoStorage.getInstance().getBarByName(bar_name);
+		
+		ArrayList<String> info_list = new ArrayList<String>();
+		
+		info_list.add("Name: " + barInfo.name);
+		info_list.add("Address: " + barInfo.address);
+		info_list.add("Phone Number: " + barInfo.phone);
+
+		return info_list;
 	}
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list, menu);
-        return true;
-    }
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -56,7 +55,7 @@ public class BarInfoActivity extends ListActivity {
 			finish();
 			break;
 		default:
-				return super.onOptionsItemSelected(item);
+			return super.onOptionsItemSelected(item);
 		}
 		
 		return true;
