@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
@@ -13,6 +15,7 @@ import android.app.AlertDialog;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.content.Context;
@@ -111,7 +114,21 @@ private GoogleMap mapView;
     	       		mapView.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 18));
     	}  
     	mapView.setMyLocationEnabled(true);
+    	mapView.setOnInfoWindowClickListener(
+      		  new OnInfoWindowClickListener(){
+      		    public void onInfoWindowClick(Marker marker){
+      		        BarInformation bar = BarInfoStorage.getInstance().getBarByName(marker.getTitle());
+      		         LatLng barLocation = new LatLng(bar.latitude, bar.longitude); 
+      		         
+      		         launchNavigation(barLocation);
+      		     }
+      		   });
+    	
     }
+    
+    
+
+    
     
     public void placeMarkers()
     {
@@ -126,6 +143,17 @@ private GoogleMap mapView;
     	          .title(bar.name));
     		}
 	    }
+    }
+    
+    public void launchNavigation(LatLng barLocation){
+    	
+    	String uri = "google.navigation:ll=%f,%f";
+    	double barLocationLat = barLocation.latitude;
+    	double barLocationLong = barLocation.longitude;
+    	
+    	Intent intent = new Intent(android.content.Intent.ACTION_VIEW, 
+    		    Uri.parse(String.format(uri, barLocationLat, barLocationLong)));
+    		startActivity(intent);
     }
 }
 
