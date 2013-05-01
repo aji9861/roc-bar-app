@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,6 +70,31 @@ public class BarInfoActivity extends ListActivity {
 		startActivity(intent);
 		finish();
 	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+	    super.onListItemClick(l, v, position, id);
+	    // Get the item that was clicked
+	    Object o = this.getListAdapter().getItem(position);
+	    String keyword = o.toString();
+	    
+	    if(keyword.startsWith("Address")){
+	    	Intent intent = getIntent();
+	    	BarInformation bar = BarInfoStorage.getInstance().getBarByName(intent.getStringExtra("bar_name"));
+	    	launchNavigation(new LatLng(bar.latitude, bar.longitude));
+	    }
+	}
+	
+	private void launchNavigation(LatLng barLocation){
+    	
+    	String uri = "google.navigation:ll=%f,%f";
+    	double barLocationLat = barLocation.latitude;
+    	double barLocationLong = barLocation.longitude;
+    	
+    	Intent intent = new Intent(android.content.Intent.ACTION_VIEW, 
+    		    Uri.parse(String.format(uri, barLocationLat, barLocationLong)));
+    		startActivity(intent);
+    }
 }
 
 
