@@ -83,6 +83,13 @@ public class BarInfoActivity extends ListActivity {
 	    	BarInformation bar = BarInfoStorage.getInstance().getBarByName(intent.getStringExtra("bar_name"));
 	    	launchNavigation(new LatLng(bar.latitude, bar.longitude));
 	    }
+	    
+	    if(keyword.startsWith("Phone")){
+		    Intent intent = new Intent(Intent.ACTION_DIAL);
+		    String uri = "tel:" + keyword.split("Phone Number: ")[1];
+		    intent.setData(Uri.parse(uri));
+		    startActivity(intent);
+	    }
 	}
 	
 	private void launchNavigation(LatLng barLocation){
